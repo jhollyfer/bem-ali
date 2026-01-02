@@ -1,0 +1,36 @@
+{
+  "extends": "@maiyush/tsconfig/node.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@application/*": ["./application/*"],
+      "@bin/*": ["./bin/*"],
+      "@config/*": ["./config/*"],
+      "@start/*": ["./start/*"],
+      "@test/*": ["./test/*"],
+      "@database/*": ["./database/*"]
+    },
+    "rootDirs": ["./application", "./bin", "./config", "./start", "./database"],
+    "typeRoots": ["./node_modules/@types", "./_types"],
+    "rootDir": "./",
+    "outDir": "./build",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    "useDefineForClassFields": false,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "application",
+    "bin",
+    "config",
+    "start",
+    "database",
+    "_types",
+    "test"
+  ],
+  "exclude": ["node_modules", "build"]
+}

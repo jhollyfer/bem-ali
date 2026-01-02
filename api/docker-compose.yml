@@ -1,0 +1,31 @@
+name: bem-ali-app
+
+services:
+  database:
+    image: postgres:16-alpine
+    container_name: bem-ali-database
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - bem-ali-database-volume:/var/lib/postgresql/data
+    networks:
+      - bem-ali-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_DATABASE}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+networks:
+  bem-ali-network:
+    driver: bridge
+
+volumes:
+  bem-ali-database-volume:
+    driver: local
