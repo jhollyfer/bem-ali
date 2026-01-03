@@ -1,6 +1,6 @@
 {
   "name": "@bem-ali/api",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -22,7 +22,6 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@bem-ali/types": "^0.1.7",
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^11.2.0",
     "@fastify/jwt": "^10.0.0",
@@ -46,6 +45,7 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
+    "@bem-ali/types": "^0.1.10",
     "@maiyush/eslint-config": "^1.0.0",
     "@maiyush/prettier": "^1.0.0",
     "@maiyush/tsconfig": "^1.0.0",

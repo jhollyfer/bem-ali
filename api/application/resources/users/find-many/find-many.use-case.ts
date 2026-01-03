@@ -1,20 +1,20 @@
+import { User, UserQueryPayload } from '@bem-ali/types';
 import { Service } from 'fastify-decorators';
 
 import type { Either } from '@application/core/either';
 import { left, right } from '@application/core/either';
 import HTTPException from '@application/core/http-exception';
-import type { IUser } from '@application/repositories/users/user-contract.repository';
 import { UserContractRepository } from '@application/repositories/users/user-contract.repository';
 
-type Response = Either<HTTPException, Array<IUser>>;
-
 @Service()
-export default class GetUsersUseCase {
+export default class UsersFindManyUseCase {
   constructor(private readonly userRepository: UserContractRepository) {}
 
-  async execute(): Promise<Response> {
+  async execute(
+    payload: UserQueryPayload,
+  ): Promise<Either<HTTPException, Array<User>>> {
     try {
-      const users = await this.userRepository.findAll();
+      const users = await this.userRepository.findMany(payload);
       return right(users);
     } catch (_error) {
       // console.error(error);

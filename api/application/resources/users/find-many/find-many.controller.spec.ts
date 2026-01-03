@@ -1,3 +1,5 @@
+import { UserCreatePayload } from '@bem-ali/types';
+import { hash } from 'bcryptjs';
 import supertest from 'supertest';
 import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 
@@ -26,20 +28,24 @@ describe('E2E Get Users Controller', () => {
     });
 
     it('deve retornar 200 e lista de usuários com estrutura correta', async () => {
-      await database.insert(UserTable).values([
+      const hashedPassword = await hash('senha123', 12);
+
+      const values: UserCreatePayload[] = [
         {
-          name: 'João Silva',
-          age: 30,
-          email: 'joao@example.com',
-          password: 'senha123',
+          name: 'Pedro Silva',
+          email: 'pedro@example.com',
+          password: hashedPassword,
+          role: 'OWNER',
         },
         {
           name: 'Maria Santos',
-          age: 25,
           email: 'maria@example.com',
-          password: 'senha456',
+          password: hashedPassword,
+          role: 'CUSTOMER',
         },
-      ]);
+      ];
+
+      await database.insert(UserTable).values(values);
 
       const response = await supertest(kernel.server).get('/users');
 
@@ -56,11 +62,13 @@ describe('E2E Get Users Controller', () => {
     });
 
     it('deve retornar usuários com dados específicos inseridos', async () => {
-      const created = {
+      const hashedPassword = await hash('senha123', 12);
+
+      const created: UserCreatePayload = {
         name: 'Pedro Costa',
-        age: 28,
         email: 'pedro@example.com',
-        password: 'senha789',
+        password: hashedPassword,
+        role: 'OWNER',
       };
 
       await database.insert(UserTable).values(created);
@@ -71,7 +79,7 @@ describe('E2E Get Users Controller', () => {
       expect(response.body.length).toBeGreaterThanOrEqual(1);
 
       const user = response.body.find(
-        (u: { email: string }) => u.email === created.email,
+        (_user: { email: string }) => _user.email === created.email,
       );
       expect(user).toBeDefined();
       expect(user.name).toBe(created.name);

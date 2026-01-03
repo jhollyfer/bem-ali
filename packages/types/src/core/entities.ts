@@ -77,3 +77,35 @@ export const UserFindByPayloadSchema = UserSchema.pick({
   });
 
 export type UserFindByPayload = z.infer<typeof UserFindByPayloadSchema>;
+
+const UserBasePayloadSchema = UserSchema.omit({
+  id: true,
+  created_at: true,
+  updated_at: true,
+  deleted_at: true,
+});
+
+export const UserCreatePayloadSchema = UserBasePayloadSchema;
+
+export type UserCreatePayload = z.infer<typeof UserCreatePayloadSchema>;
+
+export const UserUpdatePayloadSchema = UserBasePayloadSchema.partial().extend({
+  id: z.uuid(),
+});
+
+export type UserUpdatePayload = z.infer<typeof UserUpdatePayloadSchema>;
+
+export const UserQueryPayloadSchema = UserSchema.pick({
+  name: true,
+  email: true,
+  role: true,
+  deleted_at: true,
+})
+  .partial()
+  .extend({
+    page: z.number().int().positive().optional(),
+    per_page: z.number().int().positive().optional(),
+    search: z.string().optional(),
+  });
+
+export type UserQueryPayload = z.infer<typeof UserQueryPayloadSchema>;
