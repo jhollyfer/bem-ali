@@ -21,6 +21,7 @@ export default defineConfig({
     }),
   ],
   test: {
+    pool: 'forks',
     root: './',
     globals: true,
     environment: 'node',

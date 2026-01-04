@@ -18,10 +18,10 @@ export const setCookieTokens = (
   response
     .setCookie('accessToken', tokens.accessToken, {
       ...cookieOptions,
-      maxAge: 60 * 60 * 24 * 1000, // 24h
+      maxAge: 60 * 60 * 24, // 24h em segundos
     })
     .setCookie('refreshToken', tokens.refreshToken, {
       ...cookieOptions,
-      maxAge: 60 * 60 * 7 * 24 * 1000, // 7d
+      maxAge: 60 * 60 * 24 * 7, // 7d em segundos
     });
 };

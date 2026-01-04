@@ -9,6 +9,7 @@ import type { SQL } from 'drizzle-orm';
 import { and, count, eq, ilike, isNull, or } from 'drizzle-orm';
 import { Service } from 'fastify-decorators';
 
+// import { database } from '@database/index';
 import { database } from '@database/index';
 import { UserTable } from '@database/schema';
 

@@ -34,8 +34,8 @@ export default class SignInUseCase {
         ...user,
         password: undefined,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (_error) {
+      // console.error(error);
       return left(
         HTTPException.InternalServerError(
           'Internal server error',
